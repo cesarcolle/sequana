@@ -2,13 +2,13 @@ package com.github.cesarcolle.sequana.model.device;
 
 import com.github.cesarcolle.sequana.model.Namable;
 
-public class pipe implements Namable {
+public class Pipe implements Namable {
     private String name;
     private boolean flow = false;
     private Integer pins;
 
 
-    public pipe(String name, Integer pins) {
+    public Pipe(String name, Integer pins) {
         this.name = name;
         this.pins = pins;
     }

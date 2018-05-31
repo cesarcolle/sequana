@@ -4,10 +4,16 @@ import com.github.cesarcolle.sequana.grammar.SEQUANABaseListener;
 import com.github.cesarcolle.sequana.grammar.SEQUANAParser.*;
 import com.github.cesarcolle.sequana.model.*;
 import com.github.cesarcolle.sequana.model.device.Device;
+import com.github.cesarcolle.sequana.model.device.HardwareModel;
+import com.github.cesarcolle.sequana.model.device.Pipe;
 import com.github.cesarcolle.sequana.model.frequency.Frequency;
+import com.github.cesarcolle.sequana.model.misc.Interval;
 import org.antlr.v4.runtime.Token;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ModelBuilder extends SEQUANABaseListener {
 
@@ -23,10 +29,10 @@ public class ModelBuilder extends SEQUANABaseListener {
     }
 
 
-    private Map<String, Frequency> frequencies ;
-    private Map<String, Device> devices;
-    private Map<String, Area> areas;
-
+    private Map<String, Frequency> frequencies = new HashMap<>();
+    private Map<String, Device> devices = new HashMap<>();
+    private Map<String, Area> areas  = new HashMap<>();
+    private Map<String, Pipe> pipes = new HashMap<>();
 
     @Override
     public void enterRoot(RootContext ctx) {
@@ -51,13 +57,13 @@ public class ModelBuilder extends SEQUANABaseListener {
     @Override
     public void enterDevice(DeviceContext ctx) {
         String nameDevice = toString(ctx.nameDevice);
-
         Device_defContext dCtx = ctx.device_def();
-
         String hardWare = toString(dCtx.hardware().model);
-
         IntervalContext pinRangeIntervalCtx = dCtx.device_pin_range().interval();
-        
+        Interval interval = Interval.intervalFromString(toString(pinRangeIntervalCtx.min), toString(pinRangeIntervalCtx.max));
+        List<Pipe> pipeDef = dCtx.pipe_list().elem.stream().map(token -> pipes.get(toString(token)) ).collect(Collectors.toList());
+
+        addDevice(nameDevice, new Device(nameDevice,interval, pipeDef, HardwareModel.valueOf(hardWare)));
     }
 
 
@@ -66,6 +72,12 @@ public class ModelBuilder extends SEQUANABaseListener {
         devices.put(name, device);
     }
 
+
+    @Override
+    public void enterFrequencie(FrequencieContext ctx) {
+        String frequencyName = toString(ctx.name);
+        
+    }
 
     private void checkAlreadyDefined(Namable namable, Map elements){
         if (elements.containsKey(namable.getName())){

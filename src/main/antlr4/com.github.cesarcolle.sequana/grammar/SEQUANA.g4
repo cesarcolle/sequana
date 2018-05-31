@@ -2,10 +2,14 @@ grammar SEQUANA;
 
 root : (area | device | frequencie | pipe)+ (NL)* EOF;
 
+pipe                            : 'pipe_name ' name=BASIC_STRING ' {' pip_def '}';
+    pip_def                     : pipe_pin flow_meter?;
+        flow_meter              : 'flow_meter ' BOOLEAN NL;
+        pipe_pin                : 'pin ' INTEGER NL;
 
-area                    : 'area ' name=BASIC_STRING ' {'NL area_def '}';
-    area_def            : list_devices;
-        list_devices    : elem+=BASIC_STRING (COMMA elem+=BASIC_STRING)* NL;
+
+frequencie          : 'frequence ' name=BASIC_STRING ' {'NL frequency_def+ '}';
+    frequency_def   : 'day ' day=DAYS ' at ' hours=TIME NL;
 
 device                          : 'device ' nameDevice=BASIC_STRING ' {'NL device_def '}';
     device_def                  : device_pin_range pins_configuration pipe_list hardware;
@@ -14,13 +18,11 @@ device                          : 'device ' nameDevice=BASIC_STRING ' {'NL devic
         hardware                : 'model_device ' model=MODEL NL;
         pipe_list               : elem+=BASIC_STRING (COMMA elem+=BASIC_STRING)* NL;
 
-pipe                            : 'pipe_name ' name=BASIC_STRING ' {' pip_def '}';
-    pip_def                     : pipe_pin flow_meter?;
-        flow_meter              : 'flow_meter ' BOOLEAN NL;
-        pipe_pin                : 'pin ' INTEGER NL;
 
-frequencie          : 'frequence ' name=BASIC_STRING ' {'NL frequency_def+ '}';
-    frequency_def   : 'day ' day=DAYS ' at ' hours=TIME NL;
+
+area                    : 'area ' name=BASIC_STRING ' {'NL area_def '}';
+    area_def            : list_devices;
+        list_devices    : elem+=BASIC_STRING (COMMA elem+=BASIC_STRING)* NL;
 
 
 interval            : '[' min=INTEGER COMMA max=INTEGER ']';
