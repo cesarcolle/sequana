@@ -5,6 +5,7 @@ import com.github.cesarcolle.sequana.grammar.SEQUANAParser.*;
 import com.github.cesarcolle.sequana.model.*;
 import com.github.cesarcolle.sequana.model.device.Device;
 import com.github.cesarcolle.sequana.model.frequency.Frequency;
+import org.antlr.v4.runtime.Token;
 
 import java.util.Map;
 
@@ -38,11 +39,6 @@ public class ModelBuilder extends SEQUANABaseListener {
     }
 
     @Override
-    public void enterHardware(HardwareContext ctx) {
-        super.enterHardware(ctx);
-    }
-
-    @Override
     public void enterArea(AreaContext ctx) {
         super.enterArea(ctx);
     }
@@ -54,13 +50,22 @@ public class ModelBuilder extends SEQUANABaseListener {
 
     @Override
     public void enterDevice(DeviceContext ctx) {
-        super.enterDevice(ctx);
+        String nameDevice = toString(ctx.nameDevice);
+
+        Device_defContext dCtx = ctx.device_def();
+
+        String hardWare = toString(dCtx.hardware().model);
+
+        IntervalContext pinRangeIntervalCtx = dCtx.device_pin_range().interval();
+        
     }
 
-    @Override
-    public void enterDevice_def(Device_defContext ctx) {
-        super.enterDevice_def(ctx);
+
+    private void addDevice(String name, Device device){
+        checkAlreadyDefined(device, devices);
+        devices.put(name, device);
     }
+
 
     private void checkAlreadyDefined(Namable namable, Map elements){
         if (elements.containsKey(namable.getName())){
@@ -75,6 +80,13 @@ public class ModelBuilder extends SEQUANABaseListener {
             throw new IllegalArgumentException("Not all the entity have been given");
     }
 
+
+    //////////
+    // Utils//
+    //////////
+    private static String toString(Token token) {
+        return token.getText();
+    }
 
 
 }
