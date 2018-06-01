@@ -13,10 +13,10 @@ public class Pipe implements Namable {
         this.pins = pins;
     }
 
-
     public void isFlow(Boolean status){
         this.flow = status;
     }
+
     @Override
     public String getName() {
         return name;

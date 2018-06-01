@@ -1,14 +1,14 @@
 grammar SEQUANA;
 
-root : (area | device | frequencie | pipe)+ (NL)* EOF;
+root : (area | device | frequency | pipe)+ (NL)* EOF;
 
-pipe                            : 'pipe_name ' name=BASIC_STRING ' {' pip_def '}';
+pipe                            : 'pipe_name ' name=BASIC_STRING ' {'NL pip_def '}';
     pip_def                     : pipe_pin flow_meter?;
-        flow_meter              : 'flow_meter ' BOOLEAN NL;
-        pipe_pin                : 'pin ' INTEGER NL;
+        flow_meter              : 'flow_meter ' status=BOOLEAN NL;
+        pipe_pin                : 'pin ' amount=INTEGER NL;
 
 
-frequencie          : 'frequence ' name=BASIC_STRING ' {'NL frequency_def+ '}';
+frequency          : 'frequency ' name=BASIC_STRING ' {'NL frequency_def+ '}';
     frequency_def   : 'day ' day=DAYS ' at ' hours=TIME NL;
 
 device                          : 'device ' nameDevice=BASIC_STRING ' {'NL device_def '}';
@@ -16,7 +16,7 @@ device                          : 'device ' nameDevice=BASIC_STRING ' {'NL devic
         device_pin_range        : 'pin_range ' interval NL;
         pins_configuration      : 'pin_number ' INTEGER ' ' frequencie_name=BASIC_STRING NL;
         hardware                : 'model_device ' model=MODEL NL;
-        pipe_list               : elem+=BASIC_STRING (COMMA elem+=BASIC_STRING)* NL;
+        pipe_list               : 'pipe_list ' elem+=BASIC_STRING (COMMA elem+=BASIC_STRING)*;
 
 
 
