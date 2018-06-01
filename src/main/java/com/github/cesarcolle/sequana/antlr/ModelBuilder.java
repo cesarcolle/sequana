@@ -42,12 +42,21 @@ public class ModelBuilder extends SEQUANABaseListener {
     @Override
     public void exitRoot(RootContext ctx) {
         checkProperties();
-        this.model = new Model(frequencies, devices, areas);
+        this.model = new Model(frequencies, devices, areas, pipes);
+        this.built = true;
     }
     @Override
     public void enterArea(AreaContext ctx) {
-        
+        String nameArea = toString(ctx.name);
+        List<Device> devArea = ctx.area_def().list_devices().elem.stream().map(ModelBuilder::toString).map(devices::get).collect(Collectors.toList());
+        addArea(nameArea, new Area(nameArea, devArea));
     }
+
+    private void addArea(String name, Area area){
+        checkAlreadyDefined(area, areas);
+        areas.put(name, area);
+    }
+
     @Override
     public void enterDevice(DeviceContext ctx) {
         String nameDevice = toString(ctx.nameDevice);
@@ -70,7 +79,7 @@ public class ModelBuilder extends SEQUANABaseListener {
 
         List<Frequency_defContext> freqCtx = ctx.frequency_def();
         List<Day> days = freqCtx.stream()
-                .map(freqDef -> new Day(toString(freqDef.day), toInteger(freqDef.hours)))
+                .map(freqDef -> new Day(toString(freqDef.day), toString(freqDef.hours)))
                 .collect(Collectors.toList());
         addFrequency(nameFrequency, new Frequency(nameFrequency, days));
     }

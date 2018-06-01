@@ -2,10 +2,11 @@ package com.github.cesarcolle.sequana.model.frequency;
 
 public class Day {
     public String day;
-    public Integer hour;
+    public String hour;
 
-    public Day(String day, Integer hour) {
+    public Day(String day, String hour) {
         this.day = day;
         this.hour = hour;
     }
+
 }

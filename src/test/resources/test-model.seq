@@ -1,28 +1,30 @@
 pipe_name that-name {
-pin 5
+    pin 5
 }
-
 pipe_name that-name1 {
-pin 5
+    pin 5
 }
 
-pipe_name that-name1 {
-pin 5
+pipe_name that-name2 {
+    pin 5
 }
 
-pipe_name that-name1 {
-pin 5
+pipe_name that-name3 {
+    pin 5
 }
-
 frequency daybyday {
-day MONDAY at 18h00
-day THURSDAY at 18h00
-day SATURDAY at 18h00
+    day monday at 18h00
+    day thursday at 18h00
+    day saturday at 18h00
 }
 
 device potatoes {
-pin_range [1,2]
-pin_number 1 daybyday
-model_device arduino
-pipe_list that-name,that-name1
+    pin_range [1,2]
+    pin_number 1 daybyday
+    model_device ARDUINOUNO
+    pipe_list that-name,that-name1
+}
+
+area potager {
+    potatoes
 }

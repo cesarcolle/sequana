@@ -23,4 +23,16 @@ public class Device implements Namable {
     public String getName() {
         return name;
     }
+
+    public Interval getPinRange() {
+        return pinRange;
+    }
+
+    public List<Pipe> getPipe() {
+        return pipe;
+    }
+
+    public HardwareModel getHardwareModel() {
+        return hardwareModel;
+    }
 }
