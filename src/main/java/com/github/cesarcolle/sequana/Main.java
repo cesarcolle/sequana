@@ -24,7 +24,7 @@ public class Main {
 
 
     public static CharStream getCharStream(String[] args) throws IOException {
-        if (args.length < 1){
+        if (args.length < 1) {
             throw new RuntimeException("No path to the file");
         }
         Path input = Paths.get(new File(args[0]).toURI());
@@ -46,7 +46,6 @@ public class Main {
         walker.walk(builder, parser.root()); // parser.root() is the entry point of the grammar
         return builder.retrieve();
     }
-
 
 
 }

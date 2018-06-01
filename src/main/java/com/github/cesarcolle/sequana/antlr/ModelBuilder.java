@@ -2,7 +2,9 @@ package com.github.cesarcolle.sequana.antlr;
 
 import com.github.cesarcolle.sequana.grammar.SEQUANABaseListener;
 import com.github.cesarcolle.sequana.grammar.SEQUANAParser.*;
-import com.github.cesarcolle.sequana.model.*;
+import com.github.cesarcolle.sequana.model.Area;
+import com.github.cesarcolle.sequana.model.Model;
+import com.github.cesarcolle.sequana.model.Namable;
 import com.github.cesarcolle.sequana.model.device.Device;
 import com.github.cesarcolle.sequana.model.device.HardwareModel;
 import com.github.cesarcolle.sequana.model.device.Pipe;
@@ -21,7 +23,31 @@ public class ModelBuilder extends SEQUANABaseListener {
 
     private Model model;
     private boolean built = false;
+    private Map<String, Frequency> frequencies = new HashMap<>();
+    private Map<String, Device> devices = new HashMap<>();
+    private Map<String, Area> areas = new HashMap<>();
+    private Map<String, Pipe> pipes = new HashMap<>();
 
+    private static void checkAlreadyDefined(Namable namable, Map elements) {
+        if (elements.containsKey(namable.getName())) {
+            throw new IllegalArgumentException(namable.getName() + " is already defined...");
+        }
+    }
+
+    ///////////
+    // Utils //
+    ///////////
+    private static String toString(Token token) {
+        return token.getText();
+    }
+
+    private static Integer toInteger(Token token) {
+        return Integer.parseInt(token.getText());
+    }
+
+    private static Boolean toBoolean(Token token) {
+        return Boolean.parseBoolean(token.getText());
+    }
 
     public Model retrieve() {
         if (built) {
@@ -30,21 +56,18 @@ public class ModelBuilder extends SEQUANABaseListener {
         throw new RuntimeException("cannot retrieve a model that was not created");
     }
 
-
-    private Map<String, Frequency> frequencies = new HashMap<>();
-    private Map<String, Device> devices = new HashMap<>();
-    private Map<String, Area> areas = new HashMap<>();
-    private Map<String, Pipe> pipes = new HashMap<>();
     @Override
     public void enterRoot(RootContext ctx) {
         this.built = false;
     }
+
     @Override
     public void exitRoot(RootContext ctx) {
         checkProperties();
         this.model = new Model(frequencies, devices, areas, pipes);
         this.built = true;
     }
+
     @Override
     public void enterArea(AreaContext ctx) {
         String nameArea = toString(ctx.name);
@@ -52,7 +75,7 @@ public class ModelBuilder extends SEQUANABaseListener {
         addArea(nameArea, new Area(nameArea, devArea));
     }
 
-    private void addArea(String name, Area area){
+    private void addArea(String name, Area area) {
         checkAlreadyDefined(area, areas);
         areas.put(name, area);
     }
@@ -73,6 +96,7 @@ public class ModelBuilder extends SEQUANABaseListener {
         checkAlreadyDefined(device, devices);
         devices.put(name, device);
     }
+
     @Override
     public void enterFrequency(FrequencyContext ctx) {
         String nameFrequency = toString(ctx.name);
@@ -100,37 +124,15 @@ public class ModelBuilder extends SEQUANABaseListener {
         addPipe(pipeDef, pipe);
     }
 
-    private void addPipe(String name, Pipe pipe){
+    private void addPipe(String name, Pipe pipe) {
         checkAlreadyDefined(pipe, pipes);
         pipes.put(name, pipe);
-    }
-
-
-    private static void checkAlreadyDefined(Namable namable, Map elements) {
-        if (elements.containsKey(namable.getName())) {
-            throw new IllegalArgumentException(namable.getName() + " is already defined...");
-        }
     }
 
     // Check properties
     private void checkProperties() {
         if (frequencies.isEmpty() || devices.isEmpty() || areas.isEmpty())
             throw new IllegalArgumentException("Not all the entity have been given");
-    }
-
-
-    ///////////
-    // Utils //
-    ///////////
-    private static String toString(Token token) {
-        return token.getText();
-    }
-
-    private static Integer toInteger(Token token) {
-        return Integer.parseInt(token.getText());
-    }
-    private  static Boolean toBoolean(Token token){
-        return Boolean.parseBoolean(token.getText());
     }
 
 

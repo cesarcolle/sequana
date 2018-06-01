@@ -4,7 +4,7 @@ import com.github.cesarcolle.sequana.model.Namable;
 
 import java.util.List;
 
-public class Frequency implements Namable{
+public class Frequency implements Namable {
 
     private String name;
     private List<Day> days;
@@ -18,7 +18,6 @@ public class Frequency implements Namable{
     public String getName() {
         return name;
     }
-
 
 
 }

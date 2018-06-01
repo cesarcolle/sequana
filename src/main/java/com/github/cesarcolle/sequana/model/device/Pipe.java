@@ -13,7 +13,7 @@ public class Pipe implements Namable {
         this.pins = pins;
     }
 
-    public void isFlow(Boolean status){
+    public void isFlow(Boolean status) {
         this.flow = status;
     }
 

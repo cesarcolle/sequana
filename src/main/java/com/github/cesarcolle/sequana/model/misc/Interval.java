@@ -1,7 +1,5 @@
 package com.github.cesarcolle.sequana.model.misc;
 
-import com.github.cesarcolle.sequana.model.Namable;
-
 public class Interval {
 
     Integer min;
@@ -13,7 +11,7 @@ public class Interval {
     }
 
 
-    public static Interval intervalFromString(String min, String max){
+    public static Interval intervalFromString(String min, String max) {
         return new Interval(Integer.parseInt(min), Integer.parseInt(max));
 
     }

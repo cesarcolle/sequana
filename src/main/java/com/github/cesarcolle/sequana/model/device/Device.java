@@ -3,7 +3,6 @@ package com.github.cesarcolle.sequana.model.device;
 import com.github.cesarcolle.sequana.model.Namable;
 import com.github.cesarcolle.sequana.model.misc.Interval;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Device implements Namable {

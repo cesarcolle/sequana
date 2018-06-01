@@ -1,6 +1,5 @@
 package com.github.cesarcolle.sequana.model;
 
-import com.github.cesarcolle.sequana.Main;
 import com.github.cesarcolle.sequana.model.device.Device;
 import com.github.cesarcolle.sequana.model.device.Pipe;
 import com.github.cesarcolle.sequana.model.frequency.Frequency;
@@ -8,7 +7,7 @@ import com.github.cesarcolle.sequana.model.frequency.Frequency;
 import java.util.Map;
 
 public class Model {
-    private Map<String, Frequency> frequencies ;
+    private Map<String, Frequency> frequencies;
     private Map<String, Device> devices;
     private Map<String, Area> areas;
     private Map<String, Pipe> pipes;
