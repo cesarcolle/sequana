@@ -9,7 +9,7 @@ pipe                            : 'pipe_name ' name=BASIC_STRING ' {'NL pip_def 
 
 
 frequency                       : 'frequency ' name=BASIC_STRING ' {'NL frequency_def+ '}';
-    frequency_def               : TAB'day ' day=DAYS ' at ' hours=TIME NL;
+    frequency_def               : TAB day=DAYS ' at ' hours=TIME ' for ' period=PERIOD NL;
 
 device                          : 'device ' nameDevice=BASIC_STRING ' {'NL device_def '}';
     device_def                  : device_pin_range pins_configuration hardware pipe_list;
@@ -41,7 +41,8 @@ FILE_LOCATION       :   'local' | 'distant';
 HEADER_TYPE         :   'time'|'value'|'name';
 
 TIME                :   '0'..'9''0'..'9''h''0'..'5''0'..'9';
-PERIOD              :   '1'..'9''0'..'9'*('ms'|'s'|'m'|'h'|'d');
+
+PERIOD              :   '1'..'9''0'..'9'*('m'|'h');
 DATE                :   DIGIT DIGIT '/' DIGIT DIGIT '/' DIGIT DIGIT DIGIT DIGIT ' ' DIGIT DIGIT ':' DIGIT DIGIT;
 BOOLEAN             :   ('true'|'TRUE'|'false'|'FALSE');
 INTEGER             :   ('-'|'+')?DIGIT+;

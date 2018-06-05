@@ -20,4 +20,15 @@ public class Frequency implements Namable {
     }
 
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Day> getDays() {
+        return days;
+    }
+
+    public void setDays(List<Day> days) {
+        this.days = days;
+    }
 }

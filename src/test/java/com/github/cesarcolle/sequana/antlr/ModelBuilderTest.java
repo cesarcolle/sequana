@@ -27,6 +27,9 @@ public class ModelBuilderTest {
 
         assertEquals(HardwareModel.ARDUINOUNO, model.getDevices().get("potatoes").getHardwareModel());
         assertEquals(4, model.getPipes().size());
+
+        assertTrue(model.getFrequencies().get("daybyday").getDays().stream().filter(d -> d.day.equals("saturday")).anyMatch(d -> d.duration.getTime() == 3600));
+
     }
 
 }

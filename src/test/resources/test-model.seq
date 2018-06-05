@@ -13,9 +13,9 @@ pipe_name that-name3 {
     pin 5
 }
 frequency daybyday {
-    day monday at 18h00
-    day thursday at 18h00
-    day saturday at 18h00
+    monday at 18h00 for 10m
+    thursday at 18h00 for 20m
+    saturday at 18h00 for 1h
 }
 
 device potatoes {

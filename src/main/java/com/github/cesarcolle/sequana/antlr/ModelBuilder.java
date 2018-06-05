@@ -9,6 +9,7 @@ import com.github.cesarcolle.sequana.model.device.Device;
 import com.github.cesarcolle.sequana.model.device.HardwareModel;
 import com.github.cesarcolle.sequana.model.device.Pipe;
 import com.github.cesarcolle.sequana.model.frequency.Day;
+import com.github.cesarcolle.sequana.model.frequency.Duration;
 import com.github.cesarcolle.sequana.model.frequency.Frequency;
 import com.github.cesarcolle.sequana.model.misc.Interval;
 import org.antlr.v4.runtime.Token;
@@ -103,7 +104,7 @@ public class ModelBuilder extends SEQUANABaseListener {
 
         List<Frequency_defContext> freqCtx = ctx.frequency_def();
         List<Day> days = freqCtx.stream()
-                .map(freqDef -> new Day(toString(freqDef.day), toString(freqDef.hours)))
+                .map(freqDef -> new Day(toString(freqDef.day), toString(freqDef.hours), Duration.stringToDuration(toString(freqDef.period))))
                 .collect(Collectors.toList());
         addFrequency(nameFrequency, new Frequency(nameFrequency, days));
     }
