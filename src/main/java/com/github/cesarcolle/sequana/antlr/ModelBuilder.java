@@ -119,7 +119,6 @@ public class ModelBuilder extends SEQUANABaseListener {
         String pipeDef = toString(ctx.name);
         Integer pins = toInteger(ctx.pip_def().pipe_pin().amount);
         Pipe pipe = new Pipe(pipeDef, pins);
-
         Optional<Flow_meterContext> optionFlow = Optional.ofNullable(ctx.pip_def().flow_meter());
         optionFlow.ifPresent(flow -> pipe.isFlow(toBoolean(flow.status)));
         addPipe(pipeDef, pipe);

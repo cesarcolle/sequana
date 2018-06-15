@@ -2,8 +2,8 @@ package com.github.cesarcolle.sequana.model.misc;
 
 public class Interval {
 
-    Integer min;
-    Integer max;
+    public Integer min;
+    public Integer max;
 
     public Interval(Integer min, Integer max) {
         this.min = min;

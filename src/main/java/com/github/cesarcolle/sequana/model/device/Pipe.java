@@ -5,6 +5,11 @@ import com.github.cesarcolle.sequana.model.Namable;
 public class Pipe implements Namable {
     private String name;
     private boolean flow = false;
+
+    public Integer getPins() {
+        return pins;
+    }
+
     private Integer pins;
 
 

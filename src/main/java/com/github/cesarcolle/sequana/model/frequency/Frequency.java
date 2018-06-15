@@ -19,7 +19,6 @@ public class Frequency implements Namable {
         return name;
     }
 
-
     public void setName(String name) {
         this.name = name;
     }
