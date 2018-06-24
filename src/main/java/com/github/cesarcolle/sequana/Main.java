@@ -2,6 +2,7 @@ package com.github.cesarcolle.sequana;
 
 import com.github.cesarcolle.sequana.antlr.ModelBuilder;
 import com.github.cesarcolle.sequana.antlr.StopErrorListener;
+import com.github.cesarcolle.sequana.generator.SequanaGenerator;
 import com.github.cesarcolle.sequana.grammar.SEQUANALexer;
 import com.github.cesarcolle.sequana.grammar.SEQUANAParser;
 import com.github.cesarcolle.sequana.model.Model;
@@ -20,6 +21,9 @@ public class Main {
     public static void main(String[] args) throws IOException {
         CharStream charStream = getCharStream(args);
         Model sequanaModel = buildModel(charStream);
+
+        SequanaGenerator generator = new SequanaGenerator(sequanaModel);
+        generator.run();
     }
 
 

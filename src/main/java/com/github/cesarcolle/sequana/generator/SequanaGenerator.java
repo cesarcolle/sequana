@@ -30,6 +30,7 @@ public class SequanaGenerator implements Runnable {
     }
 
     private void createContext(){
+        System.out.printf("create context");
         context.put("frequency", model.getFrequencies());
         context.put("area", model.getAreas());
         context.put("pipes", model.getPipes());
@@ -40,8 +41,10 @@ public class SequanaGenerator implements Runnable {
     @Override
     public void run() {
         Template templateServer = engine.getTemplate(SEQUANA_SERVER_WEB);
+        System.out.println(templateServer.toString());
         try {
-            templateServer.merge(context, new FileWriter("out.out"));
+            templateServer.merge(context, new FileWriter("out.scala"));
+            System.out.println("merge");
         } catch (IOException e) {
             e.printStackTrace();
         }
