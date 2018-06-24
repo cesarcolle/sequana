@@ -18,8 +18,8 @@ import java.nio.file.Paths;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        System.out.println("hello world");
         CharStream charStream = getCharStream(args);
+        Model sequanaModel = buildModel(charStream);
     }
 
 
