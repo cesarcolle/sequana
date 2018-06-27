@@ -12,9 +12,9 @@ frequency                       : 'frequency ' name=BASIC_STRING ' {'NL frequenc
     frequency_def               : TAB day=DAYS ' at ' hours=TIME ' for ' period=PERIOD NL;
 
 device                          : 'device ' nameDevice=BASIC_STRING ' {'NL device_def '}';
-    device_def                  : device_pin_range pins_configuration hardware pipe_list;
+    device_def                  : device_pin_range (pins_configuration)+ hardware pipe_list;
         device_pin_range        : TAB'pin_range ' interval NL;
-        pins_configuration      : TAB'pin_number ' INTEGER ' ' frequencie_name=BASIC_STRING NL;
+        pins_configuration      : TAB'pin_number ' number=INTEGER ' ' frequencie_name=BASIC_STRING NL;
         hardware                : TAB'model_device ' model=MODEL NL;
         pipe_list               : TAB'pipe_list ' elem+=BASIC_STRING (COMMA elem+=BASIC_STRING)* NL;
 

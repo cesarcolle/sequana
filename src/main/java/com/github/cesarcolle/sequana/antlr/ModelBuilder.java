@@ -86,11 +86,17 @@ public class ModelBuilder extends SEQUANABaseListener {
         String nameDevice = toString(ctx.nameDevice);
         Device_defContext dCtx = ctx.device_def();
         String hardWare = toString(dCtx.hardware().model);
+
         IntervalContext pinRangeIntervalCtx = dCtx.device_pin_range().interval();
         Interval interval = Interval.intervalFromString(toString(pinRangeIntervalCtx.min), toString(pinRangeIntervalCtx.max));
+
+        Map<Integer, Frequency> pinsConfiguration = dCtx.pins_configuration().stream()
+                .collect(Collectors.toMap(ctxPins -> toInteger(ctxPins.number),
+                        ctxPins -> frequencies.get(toString(ctxPins.frequencie_name))));
+
         List<Pipe> pipeDef = dCtx.pipe_list().elem.stream().map(token -> pipes.get(toString(token))).collect(Collectors.toList());
 
-        addDevice(nameDevice, new Device(nameDevice, interval, pipeDef, HardwareModel.valueOf(hardWare)));
+        addDevice(nameDevice, new Device(nameDevice, interval, pipeDef,pinsConfiguration, HardwareModel.valueOf(hardWare)));
     }
 
     private void addDevice(String name, Device device) {
