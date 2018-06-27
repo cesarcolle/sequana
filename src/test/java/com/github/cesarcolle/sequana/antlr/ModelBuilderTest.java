@@ -14,11 +14,12 @@ import static org.junit.Assert.assertTrue;
 
 public class ModelBuilderTest {
 
-    private final String path = "src/test/resources/test-model.seq";
+    private final String pathSimpleSample = "src/test/resources/test-model.seq";
+    private final String device2pinsConfiguration = "src/test/resources/test-model-devices-2-pins.seq";
 
     @Test
     public void testBuildingSimpleModel() throws IOException {
-        String[] in = {path};
+        String[] in = {pathSimpleSample};
         CharStream cstream = getCharStream(in);
         Model model = buildModel(cstream);
 
@@ -29,7 +30,20 @@ public class ModelBuilderTest {
         assertEquals(4, model.getPipes().size());
 
         assertTrue(model.getFrequencies().get("daybyday").getDays().stream().filter(d -> d.day.equals("saturday")).anyMatch(d -> d.duration.getTime() == 3600));
+    }
 
+    @Test
+    public void testBuilding2PinsDevices() throws IOException {
+        String[] in = {device2pinsConfiguration};
+        CharStream cstream = getCharStream(in);
+        Model model = buildModel(cstream);
+
+        assertEquals(1, model.getAreas().size());
+        assertTrue(model.getAreas().containsKey("potager"));
+
+        assertEquals(2, model.getDevices().size());
+        // assertEquals(2, model.getDevices().get("salade"));
+        assertTrue(model.getFrequencies().get("daybyday").getDays().stream().filter(d -> d.day.equals("saturday")).anyMatch(d -> d.duration.getTime() == 3600));
     }
 
 }
