@@ -79,13 +79,13 @@ class DeviceControl extends Actor {
 
 object NetworkFinder {
 
-  val devices = $devices.size() +1// TO BE COMPLETED
+  val devices = 2// TO BE COMPLETED
 
 
   def addressDeviceByName() : Map[String, String] = {
     var result = Map.empty[String, String]
     // Translate hostname by their Adress IP !
-    for (inet <-  1 until devices){
+    for (inet <-  0 until devices){
       try{
         // The 192.... have to be changed.
         val inetAdress = InetAddress.getByName("192.168.0.0." + inet.toString)

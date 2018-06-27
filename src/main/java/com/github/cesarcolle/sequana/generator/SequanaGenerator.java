@@ -44,23 +44,21 @@ public class SequanaGenerator implements Runnable {
 
 
     private void createTree(File newExec) {
-        newExec.mkdirs();
+        newExec.getParentFile().mkdirs();
     }
 
     private void createServerTemplate() throws IOException {
         // generate server tree.
-        System.out.println("create tree");
-        String webServerPath = DIR_OUT_SERVER + TREE_SCALA_APP;
+        String webServerPath = DIR_OUT_SERVER + TREE_SCALA_APP + "WebServer.scala";
+        File webServer = new File(webServerPath);
         createTree(new File(webServerPath));
 
-        System.out.println("copy sbt file");
+        // copy the sbt file to the new server.
         File serverBuildFile = new File(SEQUANA_SERVER_BUILD);
         Files.copy(serverBuildFile.toPath(), new File(DIR_OUT_SERVER + "build.sbt").toPath(), REPLACE_EXISTING);
 
-        // get the
+        // Get the webServerTemplate
         Template webServerTemplate = engine.getTemplate(SEQUANA_SERVER_WEB);
-
-        File webServer = new File(webServerPath + "out");
         FileWriter fw = new FileWriter(webServer);
         webServerTemplate.merge(context, fw);
         fw.close();
