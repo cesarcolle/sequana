@@ -26,9 +26,10 @@ public class ModelBuilderTest {
         assertEquals(1, model.getAreas().size());
         assertTrue(model.getAreas().containsKey("potager"));
 
+        assertEquals(1, model.getDevices().get("potatoes").getPipeNumberFrequency().size());
         assertEquals(HardwareModel.ARDUINOUNO, model.getDevices().get("potatoes").getHardwareModel());
+        
         assertEquals(4, model.getPipes().size());
-
         assertTrue(model.getFrequencies().get("daybyday").getDays().stream().filter(d -> d.day.equals("saturday")).anyMatch(d -> d.duration.getTime() == 3600));
     }
 
@@ -42,7 +43,7 @@ public class ModelBuilderTest {
         assertTrue(model.getAreas().containsKey("potager"));
 
         assertEquals(2, model.getDevices().size());
-        // assertEquals(2, model.getDevices().get("salade"));
+        assertEquals(2, model.getDevices().get("salade").getPipeNumberFrequency().size());
         assertTrue(model.getFrequencies().get("daybyday").getDays().stream().filter(d -> d.day.equals("saturday")).anyMatch(d -> d.duration.getTime() == 3600));
     }
 
