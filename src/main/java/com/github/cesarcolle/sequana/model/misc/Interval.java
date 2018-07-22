@@ -11,8 +11,12 @@ public class Interval {
     }
 
 
+    @Override
+    public String toString() {
+        return "["+ min +", "+  max  + "]";
+    }
+
     public static Interval intervalFromString(String min, String max) {
         return new Interval(Integer.parseInt(min), Integer.parseInt(max));
-
     }
 }

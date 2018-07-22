@@ -51,8 +51,12 @@ public class Device implements Namable, Hygiene {
 
         Boolean pipeInRange = pipeNumberFrequency.keySet().stream().anyMatch(pin -> pin % pinRange.max > 0);
         if (pipeInRange){
-            throw  new IllegalArgumentException("your pin number don't belong to the pin_rnge given for device "+ name);
+            throw  new IllegalArgumentException("your pin number don't belong to the pin_range given for device "+ name);
         }
+        if (pinRange.max - pinRange.min != pipeNumberFrequency.size()){
+            throw new IllegalArgumentException("you declare " + pipeNumberFrequency.size() + " for " + pinRange + " interval" );
+        }
+
     }
 
     public Map<Integer, Frequency> getPipeNumberFrequency() {

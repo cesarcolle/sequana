@@ -22,6 +22,12 @@ public class Model {
 
     }
 
+    public void checkHygieneModel() throws Exception {
+        for(Device device : devices.values()){
+            device.checkHygiene();
+        }
+    }
+
     public Map<String, Frequency> getFrequencies() {
         return frequencies;
     }

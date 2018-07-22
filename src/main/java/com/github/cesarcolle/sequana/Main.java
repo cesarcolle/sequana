@@ -48,6 +48,8 @@ public class Main {
         ModelBuilder builder = new ModelBuilder();
 
         walker.walk(builder, parser.root()); // parser.root() is the entry point of the grammar
+
+
         return builder.retrieve();
     }
 
