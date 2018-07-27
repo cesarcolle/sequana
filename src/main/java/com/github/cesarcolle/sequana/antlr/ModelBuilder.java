@@ -50,8 +50,9 @@ public class ModelBuilder extends SEQUANABaseListener {
         return Boolean.parseBoolean(token.getText());
     }
 
-    public Model retrieve() {
+    public Model retrieve() throws Exception {
         if (built) {
+            model.checkHygieneModel();
             return model;
         }
         throw new RuntimeException("cannot retrieve a model that was not created");

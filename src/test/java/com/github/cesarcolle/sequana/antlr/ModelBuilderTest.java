@@ -18,7 +18,7 @@ public class ModelBuilderTest {
     private final String device2pinsConfiguration = "src/test/resources/test-model-devices-2-pins.seq";
 
     @Test
-    public void testBuildingSimpleModel() throws IOException {
+    public void testBuildingSimpleModel() throws Exception {
         String[] in = {pathSimpleSample};
         CharStream cstream = getCharStream(in);
         Model model = buildModel(cstream);
@@ -34,7 +34,7 @@ public class ModelBuilderTest {
     }
 
     @Test
-    public void testBuilding2PinsDevices() throws IOException {
+    public void testBuilding2PinsDevices() throws Exception {
         String[] in = {device2pinsConfiguration};
         CharStream cstream = getCharStream(in);
         Model model = buildModel(cstream);

@@ -1,16 +1,16 @@
 pipe_name that-name {
-    pin 5
+    pin 1
 }
 pipe_name that-name1 {
-    pin 5
+    pin 1
 }
 
 pipe_name that-name2 {
-    pin 5
+    pin 1
 }
 
 pipe_name that-name3 {
-    pin 5
+    pin 1
 }
 frequency daybyday {
     monday at 18h00 for 10m

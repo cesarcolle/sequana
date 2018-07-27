@@ -44,12 +44,14 @@ public class Device implements Namable, Hygiene {
 
     @Override
     public void checkHygiene() throws Exception {
-        Integer countPins = pipe.stream().map(Pipe::getPins).reduce(0, (acc, pins) -> acc + pins);
-        if (pinRange.max < countPins) {
-            throw new IllegalArgumentException("there is not enough available pins in your device");
+        Integer countPins = pipe.size();
+        Integer intervalSize = pinRange.max - pinRange.min +1;
+
+        if ( countPins > intervalSize) {
+            throw new IllegalArgumentException("there is not enough available pins in your device : " + name);
         }
 
-        Boolean pipeInRange = pipeNumberFrequency.keySet().stream().anyMatch(pin -> pin % pinRange.max > 0);
+        Boolean pipeInRange = pipeNumberFrequency.keySet().stream().anyMatch(pin -> pin - pinRange.max >= 0);
         if (pipeInRange){
             throw  new IllegalArgumentException("your pin number don't belong to the pin_range given for device "+ name);
         }

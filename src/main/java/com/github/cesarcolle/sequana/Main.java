@@ -18,7 +18,7 @@ import java.nio.file.Paths;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         CharStream charStream = getCharStream(args);
         Model sequanaModel = buildModel(charStream);
 
@@ -35,7 +35,7 @@ public class Main {
         return CharStreams.fromPath(input);
     }
 
-    public static Model buildModel(CharStream stream) {
+    public static Model buildModel(CharStream stream) throws Exception {
         SEQUANALexer lexer = new SEQUANALexer(stream);
         lexer.removeErrorListeners();
         lexer.addErrorListener(new StopErrorListener());
