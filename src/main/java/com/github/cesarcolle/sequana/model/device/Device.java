@@ -55,6 +55,13 @@ public class Device implements Namable, Hygiene {
         if (pipeInRange){
             throw  new IllegalArgumentException("your pin number don't belong to the pin_range given for device "+ name);
         }
+
+        Integer countPipePinUsed = pipe.stream().map(Pipe::getPins).reduce(0, (acc, curr) -> acc + curr);
+
+        if (countPipePinUsed > pinRange.max){
+            throw new IllegalArgumentException("The pipes declares used too much pins for device " + name);
+        }
+
         if (pinRange.max - pinRange.min != pipeNumberFrequency.size()){
             throw new IllegalArgumentException("you declare " + pipeNumberFrequency.size() + " for " + pinRange + " interval" );
         }
